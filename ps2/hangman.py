@@ -147,6 +147,7 @@ def hangman(secret_word, with_help):
     guesses_remaining = 10
     letters_guessed = ""
     word_progress = "*" * len(secret_word)
+    vowels = "aeiou"
     while True:
         print("--------------")
         print(f"You have {guesses_remaining} guesses left.")
@@ -154,13 +155,19 @@ def hangman(secret_word, with_help):
         print(f"Available letters: {available_letters}")
         guess = input("Please guess a letter: ").lower()
         if guess.isalpha() and len(guess) == 1:
-            letters_guessed += guess
-            if guess in secret_word:
-                word_progress = get_word_progress(secret_word, letters_guessed)
-                print(f"Good guess: {word_progress}")
+            if guess not in letters_guessed:
+                letters_guessed += guess
+                if guess in secret_word:
+                    word_progress = get_word_progress(secret_word, letters_guessed)
+                    print(f"Good guess: {word_progress}")
+                else:
+                    if guess in vowels:
+                        guesses_remaining -= 2
+                    else:
+                        guesses_remaining -= 1
+                    print(f"Oops! That letter is not in my word: {word_progress}")
             else:
-                guesses_remaining -= 1
-                print(f"Oops! That letter is not in my word: {word_progress}")
+                print(f"Oops! You've already guessed that letter: {word_progress}")
         else:
             print(
                 f"Oops! That is not a valid letter. Please input a letter from the alphabet: {word_progress}"
