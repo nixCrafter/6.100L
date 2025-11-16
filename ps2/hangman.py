@@ -75,7 +75,13 @@ def get_word_progress(secret_word, letters_guessed):
         which letters in secret_word have not been guessed so far
     """
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    word_progress = ""
+    for letter in secret_word:
+        if letter in letters_guessed:
+            word_progress += letter
+        else:
+            word_progress += "*"
+    return word_progress
 
 
 def get_available_letters(letters_guessed):
