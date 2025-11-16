@@ -144,6 +144,27 @@ def hangman(secret_word, with_help):
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     print("Welcome to Hangman!")
     print(f"I am thinking of a word that is {len(secret_word)} letters long.")
+    guesses_remaining = 10
+    letters_guessed = ""
+    word_progress = "*" * len(secret_word)
+    while True:
+        print("--------------")
+        print(f"You have {guesses_remaining} guesses left.")
+        available_letters = get_available_letters(letters_guessed)
+        print(f"Available letters: {available_letters}")
+        guess = input("Please guess a letter: ").lower()
+        if guess.isalpha() and len(guess) == 1:
+            letters_guessed += guess
+            if guess in secret_word:
+                word_progress = get_word_progress(secret_word, letters_guessed)
+                print(f"Good guess: {word_progress}")
+            else:
+                guesses_remaining -= 1
+                print(f"Oops! That letter is not in my word: {word_progress}")
+        else:
+            print(
+                f"Oops! That is not a valid letter. Please input a letter from the alphabet: {word_progress}"
+            )
 
 
 # When you've completed your hangman function, scroll down to the bottom
