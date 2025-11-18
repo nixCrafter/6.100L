@@ -59,7 +59,7 @@ class Message(object):
         """
         text = self.get_text()
         ciphertext = ""
-        for i in range(len(text)):
+        for i in range(len(pad)):
             ciphertext += self.shift_char(text[i], pad[i])
         return ciphertext
 
@@ -150,7 +150,7 @@ class EncryptedMessage(Message):
         an EncryptedMessage object inherits from Message. It has one attribute:
             the message text (ciphertext)
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        super().__init__(input_text)
 
     def __repr__(self):
         """
@@ -170,4 +170,7 @@ class EncryptedMessage(Message):
 
         Returns: (PlaintextMessage) the decrypted message (containing the pad)
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        reversed_pad = []
+        for i in pad:
+            reversed_pad.append(-i)
+        return PlaintextMessage(self.apply_pad(reversed_pad), pad)
